@@ -12,7 +12,7 @@ function convert(CSVfile, filename){
 	// process csv file lines into arrays of elements
 	var CSVFileArrayofArrays = [];
 
-	console.log(CSVFileArray);
+
 
 	for (var i = 0; i < CSVFileArray.length; i++) {
 		if (CSVFileArray[i].length == 0)
@@ -21,7 +21,7 @@ function convert(CSVfile, filename){
 		CSVFileArrayofArrays[i] = CSVToArray(CSVFileArray[i])[0];
 	}
 
-	console.log("!!!");
+
 
 
 	// create the IR hash
@@ -54,7 +54,7 @@ function convert(CSVfile, filename){
 
 	// insert array of children into IR
 	IR["children"] = arrayOfChildrenRows;
-	console.log(JSON.stringify(IR));
+
 	return IR;
 }
 
