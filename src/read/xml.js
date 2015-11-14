@@ -57,7 +57,7 @@ function convert(string, opt) {
 // Some basic unit tests
 //
 fs = require('fs');
-fs.readFile('./test/read/xml/data/simple.xml', 'utf8', function (err,data) {
+fs.readFile('./test/read/xml/data/cd_catalog.xml', 'utf8', function (err,data) {
         if (err) {
                 return console.log(err);
         }
