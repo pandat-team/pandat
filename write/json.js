@@ -14,6 +14,7 @@ function convert(ir) {
 	
 	let rconvert = function (ir) {
 		if (Array.isArray(ir)) {
+			// is it an array of plain objects?
 			return "[" + ir.map(rconvert).join(",") + "]";
 		}
 
