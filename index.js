@@ -61,19 +61,20 @@ if (argv._.length != 1) {
 }
 
 validateFormats(argv["f"], argv["t"]).then(() => {
-	return FS.read(argv._[0]);
+	return FS.read(argv._[0], "b");
 }).then(data => {
 	// we have the data, load the reader and generate the IR
 
 	// TODO we are loading arbitrary javascript!
-	var reader = require("read/" + argv["f"] + ".js");
+	var reader = require("./read/" + argv["f"] + ".js");
 	return reader.convert(data, argv._[0]);
 	
 }).then(ir => {
 	// now we have the IR. load the writer and
 	// convert it.
 
-	var writer = require("write/" + argv["t"] + ".js");
+	console.log(JSON.stringify(ir));
+	var writer = require("./write/" + argv["t"] + ".js");
 	return writer.convert(ir);
 
 }).then(result => {
@@ -82,5 +83,6 @@ validateFormats(argv["f"], argv["t"]).then(() => {
 
 }).catch(e => {
 	console.log(e);
+	console.log(e.stack);
 	printUsage();
 });
