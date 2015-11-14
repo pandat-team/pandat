@@ -43,6 +43,34 @@ function validateFormats(from, to) {
 
 }
 
+function convertFormats(from, to, file) {
+
+	return validateFormats(from, to).then(() => {
+		return FS.read(file, "b");
+	}).then(data => {
+		// we have the data, load the reader and generate the IR
+
+		// TODO we are loading arbitrary javascript!
+		var reader = require("./read/" + argv["f"] + ".js");
+		return reader.convert(data, argv._[0]);
+		
+	}).then(ir => {
+		// now we have the IR. load the writer and
+		// convert it.
+
+
+		var writer = require("./write/" + argv["t"] + ".js");
+		return writer.convert(ir);
+
+	}).then(result => {
+		return result;
+	}).catch(e => {
+		//console.log(e);
+		console.log(e.stack);
+		printUsage();
+	});
+}
+
 
 // must include a "from"
 let err = false;
@@ -65,32 +93,8 @@ if (!err && argv._.length != 1) {
 
 if (!err) {
 
+	convertFormats(argv["f"], argv["t"], argv._[0])
+		.then(console.log);
 
-	validateFormats(argv["f"], argv["t"]).then(() => {
-		return FS.read(argv._[0], "b");
-	}).then(data => {
-		// we have the data, load the reader and generate the IR
-
-		// TODO we are loading arbitrary javascript!
-		var reader = require("./read/" + argv["f"] + ".js");
-		return reader.convert(data, argv._[0]);
-		
-	}).then(ir => {
-		// now we have the IR. load the writer and
-		// convert it.
-
-
-		var writer = require("./write/" + argv["t"] + ".js");
-		return writer.convert(ir);
-
-	}).then(result => {
-		// for now, just spit the writer's output to STDOUT
-		console.log(result);
-
-	}).catch(e => {
-		//console.log(e);
-		console.log(e.stack);
-		printUsage();
-	});
 
 }
