@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 // Copyright 2015 Tiffany Chen, David Giliotti, Ryan Marcus, Eden Zik
 // The file is part of pandat
 
@@ -5,22 +7,18 @@
 
 let argv = require('minimist')(process.argv.slice(2));
 let loader = require("./util/dynamic_loader.js");
-var FS = require("q-io/fs");
+let FS = require("q-io/fs");
 let _ = require("lodash");
 
 
 function printUsage() {
 
-	loader.getReaders().then(r => {
+	return loader.getReaders().then(r => {
 		console.log("Usage: pandat -f READER -t WRITER INPUT");
 		console.log("Valid readers: " + r);
 		return loader.getWriters();
 	}).then(w => {
 		console.log("Valid writers: " + w);
-		process.exit(-1);
-	}).catch(e => {
-		console.log(e);
-		process.exit(-1);
 	});
 
 
@@ -47,43 +45,52 @@ function validateFormats(from, to) {
 
 
 // must include a "from"
+let err = false;
 if (! ("f" in argv)) {
-	printUsage();
+	printUsage().then(() => process.exit(-1));
+	err = true;
 }
 
 // must include a "to"
-if (! ("t" in argv)) {
-	printUsage();
+if (!err && ! ("t" in argv)) {
+	printUsage().then(() => process.exit(-1));
+	err = true;
 }
 
 // must include an input file
-if (argv._.length != 1) {
-	printUsage();
+if (!err && argv._.length != 1) {
+	printUsage().then(() => process.exit(-1));
+	err = true;
 }
 
-validateFormats(argv["f"], argv["t"]).then(() => {
-	return FS.read(argv._[0], "b");
-}).then(data => {
-	// we have the data, load the reader and generate the IR
-
-	// TODO we are loading arbitrary javascript!
-	var reader = require("./read/" + argv["f"] + ".js");
-	return reader.convert(data, argv._[0]);
-	
-}).then(ir => {
-	// now we have the IR. load the writer and
-	// convert it.
+if (!err) {
 
 
-	var writer = require("./write/" + argv["t"] + ".js");
-	return writer.convert(ir);
+	validateFormats(argv["f"], argv["t"]).then(() => {
+		return FS.read(argv._[0], "b");
+	}).then(data => {
+		// we have the data, load the reader and generate the IR
 
-}).then(result => {
-	// for now, just spit the writer's output to STDOUT
-	console.log(result);
+		// TODO we are loading arbitrary javascript!
+		var reader = require("./read/" + argv["f"] + ".js");
+		return reader.convert(data, argv._[0]);
+		
+	}).then(ir => {
+		// now we have the IR. load the writer and
+		// convert it.
 
-}).catch(e => {
-	console.log(e);
-	console.log(e.stack);
-	printUsage();
-});
+
+		var writer = require("./write/" + argv["t"] + ".js");
+		return writer.convert(ir);
+
+	}).then(result => {
+		// for now, just spit the writer's output to STDOUT
+		console.log(result);
+
+	}).catch(e => {
+		//console.log(e);
+		console.log(e.stack);
+		printUsage();
+	});
+
+}
