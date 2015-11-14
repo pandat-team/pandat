@@ -73,7 +73,7 @@ validateFormats(argv["f"], argv["t"]).then(() => {
 	// now we have the IR. load the writer and
 	// convert it.
 
-	console.log(JSON.stringify(ir));
+
 	var writer = require("./write/" + argv["t"] + ".js");
 	return writer.convert(ir);
 

@@ -19,7 +19,7 @@ function convert(excel, filename, options) {
 	values = values.map(row => {
 		return {"key": "row",
 			"children": header.map((h, idx) => {
-				return {"key": h, "value": row[idx]};
+				return {"key": h, "children": row[idx]};
 			})
 		       };
 	
