@@ -1,0 +1,28 @@
+{
+  "name": "pandat",
+  "version": "0.0.1",
+  "description": "Pandoc for data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanMarcus/pandat.git"
+  },
+  "keywords": [
+    "converter"
+  ],
+  "author": "Tiffany Chen, David Giliotti, Ryan Marcus, Eden Zik",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/RyanMarcus/pandat/issues"
+  },
+  "homepage": "https://github.com/RyanMarcus/pandat#readme",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "minimist": "^1.2.0",
+    "q": "^1.4.1",
+    "q-io": "^1.13.1"
+  }
+}
