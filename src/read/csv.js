@@ -10,7 +10,6 @@ function convert(CSVfile, filename){
     // process csv file lines into arrays of elements
     var CSVFileArrayofArrays = [];
     for (var i = 0; i < CSVFileArray.length; i++) {
-	console.log( CSVToArray(CSVFileArray[i])[0]);
 	CSVFileArrayofArrays[i] = CSVToArray(CSVFileArray[i])[0];
     }
 
