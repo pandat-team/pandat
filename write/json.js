@@ -15,7 +15,11 @@ function convert(ir) {
 	let rconvert = function (ir) {
 		if (Array.isArray(ir)) {
 			// is it an array of plain objects?
-			return "[" + ir.map(rconvert).join(",") + "]";
+			if (ir.every(isPlainObject)) {
+				return "{" + ir.map(rconvert).join(",") + "}";
+			} else {
+				return JSON.stringify(ir);
+			}
 		}
 
 		if (isPlainObject(ir)) {
