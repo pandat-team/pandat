@@ -3,8 +3,8 @@
 
 "use strict";
 
-module.exports.describe = describe;
 module.exports.convert = convert;
+module.exports.describe = describe;
 
 let xlsx = require('node-xlsx');
 let _ = require('lodash');
@@ -32,6 +32,6 @@ function convert(excel, filename, options) {
 }
 
 function describe(){
-	return "xlsx file";
+	return "excel file";
 }
 
