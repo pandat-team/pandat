@@ -53,7 +53,7 @@ function convert(ir) {
 }
 
 function describe(){
-	return "XML file";
+	return "Extensible Markup Language";
 }
 
 

@@ -36,7 +36,7 @@ function convert(ir) {
 }
 
 function describe(){
-	return "JavaScript Object Notation file";
+	return "JavaScript Object Notation format";
 }
 
 

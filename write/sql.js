@@ -65,7 +65,7 @@ function convert(IR){
 }
 
 function describe(){
-	return "SQL file";
+	return "SQL insert queries";
 }
 
 

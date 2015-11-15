@@ -47,7 +47,6 @@ function printUsage() {
 function validateFormats(from, to) {
 
 	return loader.getReaders().then(r => {
-		console.log();
 		if (! (_.includes(r, from))) {
 			throw new Error(from + " is not a valid reader.");
 		}
@@ -71,7 +70,7 @@ function convertFormats(from, to, file) {
 		// we have the data, load the reader and generate the IR
 
 		// TODO we are loading arbitrary javascript!
-		var reader = loader.loadReader(argv["f"]);
+		var reader = loader.getReader(argv["f"]);
 		return reader.convert(data, argv._[0]);
 		
 	}).then(ir => {
@@ -79,7 +78,7 @@ function convertFormats(from, to, file) {
 		// convert it.
 
 
-		var writer = loader.loadWriter(argv["t"]);
+		var writer = loader.getWriter(argv["t"]);
 		return writer.convert(ir);
 
 	}).then(result => {

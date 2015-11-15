@@ -45,7 +45,7 @@ function convert(obj, fn) {
 }
 
 function describe(){
-	return "JavaScript Object Notation file";
+	return "JavaScript Object Notation format";
 }
 
 //console.log(JSON.stringify(convert(json,"FileName")));

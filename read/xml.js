@@ -62,7 +62,7 @@ module.exports = {
         },
 		
 		describe: function(){
-			return "XML file";
+			return "Extensible Markup Language";
 		}
 }
 
