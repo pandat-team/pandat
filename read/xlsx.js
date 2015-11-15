@@ -32,6 +32,6 @@ function convert(excel, filename, options) {
 }
 
 function describe(){
-	return "excel file";
+	return "Excel file";
 }
 

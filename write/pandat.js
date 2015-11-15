@@ -16,5 +16,5 @@ function convert(ir) {
 }
 
 function describe(){
-	return "pandat file";
+	return "Pandat file";
 }

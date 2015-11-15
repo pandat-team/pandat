@@ -67,5 +67,5 @@ function CSVToArray(data) {
 }
 
 function describe(){
-	return "comma separated value file";
+	return "Comma separated value file";
 }
