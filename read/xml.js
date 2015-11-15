@@ -8,7 +8,6 @@ module.exports = {
                 var DOMParser = require('xmldom').DOMParser;
                 var doc = new DOMParser().parseFromString(buffer.toString());
                 function parse(node){
-                        //console.log(node.constructor.name);
                         function key(node){
                                 return node.tagName;
                         }
@@ -27,11 +26,19 @@ module.exports = {
                                 return result;
                         }
                         function value(node){
-                                return node.data;
+                                return node.data.trim();
                         }
                         function children(node){
                                 if (_.isEmpty(node.childNodes)) return undefined;
-                                return _.values(node.childNodes).map(
+                                values = _.values(node.childNodes).filter(function(item){
+                                        return !_.isEmpty(item);
+                                });
+                                if (values.length == 1){
+                                        if (values[0].constructor.name == 'Text'){
+                                                return value(values[0]);
+                                        }
+                                }
+                                return values.map(
                                                 function(item){
                                                         switch(item.constructor.name){
                                                                 case 'Text': return value(item);
