@@ -3,12 +3,12 @@
 
 "use strict";
 
+module.exports.describe = describe;
+module.exports.convert = convert;
+
 let xlsx = require('node-xlsx');
 let _ = require('lodash');
 
-
-
-module.exports.convert = convert;
 function convert(excel, filename, options) {
 	//let data = xlsx.parse("/Users/ryan/projects/pandat/test/inputs/excel/data1.xlsx");
 	let data = xlsx.parse(excel)[0];

@@ -2,6 +2,7 @@
 // This file is part of pandat
 
 module.exports.convert = convert;
+module.exports.describe = describe;
 
 // convert inserts tuples into the table that are already there 
 // inserts nulls when there are no values listed for a certain column

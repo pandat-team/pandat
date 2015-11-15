@@ -1,6 +1,8 @@
 //Copyright 2015 Tiffany Chen, David Gilotti, Ryan Marcus, Eden Zik
 //This file is part of Pandat
 
+module.exports.describe = describe;
+
 module.exports = {
         convert: function(buffer, opt) {
 

@@ -4,6 +4,7 @@
 "use strict";
 
 module.exports.describe = describe;
+
 function describe() {
 	return "pandat's internal representation";
 }

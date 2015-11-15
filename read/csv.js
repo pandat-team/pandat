@@ -5,6 +5,7 @@ var csv = require("csv-parse");
 var Q = require("q");
 
 module.exports.convert = convert;
+module.exports.describe = describe;
 
 function convert(CSVfile, filename){
 	// split csv file by paragraph breaks
@@ -66,5 +67,5 @@ function CSVToArray(data) {
 }
 
 function describe(){
-	return "csv file";
+	return "comma separated value file";
 }

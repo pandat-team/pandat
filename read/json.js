@@ -3,6 +3,8 @@
 
 //var json = '{"bob":7, "Jerry":{"Marry":[3,6]}, "David":[4,5] }'
 module.exports.convert = convert;
+module.exports.describe = describe;
+
 function convert(obj, fn) {
 
 	var BigMap = {};

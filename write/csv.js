@@ -4,6 +4,8 @@
 "use strict";
 
 module.exports.convert = convert;
+module.exports.describe = describe;
+
 function convert(ir) {
 
 	var toR = "";
@@ -33,5 +35,5 @@ function convert(ir) {
 }
 
 function describe(){
-	return "CSVs file";
+	return "Comma separated values";
 }

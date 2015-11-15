@@ -3,13 +3,15 @@
 
 "use strict";
 
+module.exports.convert = convert;
+module.exports.describe = describe;
+
 function isPlainObject(o) {
 	return ((o === null) || Array.isArray(o) || typeof o == 'function') ?
 		false
 		:(typeof o == 'object');
 }
 
-module.exports.convert = convert;
 function convert(ir) {
 
 
