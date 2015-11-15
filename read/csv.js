@@ -65,3 +65,6 @@ function CSVToArray(data) {
 	return toR.promise;
 }
 
+function describe(){
+	return "csv file";
+}

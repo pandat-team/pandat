@@ -42,4 +42,8 @@ function convert(obj, fn) {
 	return BigMap;
 }
 
+function describe(){
+	return "json file";
+}
+
 //console.log(JSON.stringify(convert(json,"FileName")));

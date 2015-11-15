@@ -60,3 +60,8 @@ module.exports = {
                 return parse(doc).children;  // grab only the first root element
         }
 }
+
+function describe(){
+	return "XML file";
+}
+

@@ -8,3 +8,7 @@ module.exports.convert = convert;
 function convert(ir) {
 	return JSON.stringify(ir);
 }
+
+function describe(){
+	return "pandat file";
+}

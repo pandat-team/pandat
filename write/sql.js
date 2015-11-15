@@ -63,4 +63,9 @@ function convert(IR){
 	return SQLQuery;
 }
 
+function describe(){
+	return "SQL file";
+}
+
+
 //convert({"key": "hello", "children": [ {"key": "row", "children": [{"key": "a", "children": 0}, {"key": "b", "children": {"key": "poop", "children": "poopy"}}, {"key": "c", "children": [1, 2, 3]}, {"key": "d", "children": "hello world"}]}, {"key": "row", "children": [{"key": "a", "children": 2}, {"key": "b", "children": 77}]}]});

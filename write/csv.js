@@ -31,3 +31,7 @@ function convert(ir) {
 
 	return toR;
 }
+
+function describe(){
+	return "CSVs file";
+}

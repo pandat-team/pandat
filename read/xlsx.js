@@ -31,5 +31,7 @@ function convert(excel, filename, options) {
 
 }
 
-
+function describe(){
+	return "xlsx file";
+}
 

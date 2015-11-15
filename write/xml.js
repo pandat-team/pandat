@@ -50,6 +50,11 @@ function convert(ir) {
 	
 }
 
+function describe(){
+	return "XML file";
+}
+
+
 
 /*var ir = {"key":"file","children":[{"key":"bob","children":7},{"key":"Jerry","children":[{"key":"Marry","children":[3,6]}]},{"key":"David","children":[4,5]}]};
 
