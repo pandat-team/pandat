@@ -26,7 +26,7 @@ function convert(ir) {
 			return "\"" + ir['key'] + "\": " + rconvert(ir['children']);
 		}
 
-		return ir;
+		return '"' + ir + '"';
 	};
 
 	return rconvert(ir['children']);
