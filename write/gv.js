@@ -41,7 +41,7 @@ function convert(ir) {
 
 	rconv(ir);
 
-	let toR = "digraph {\n";
+	let toR = "digraph {\nrankdir=LR;\n";
 
 	toR += Object.keys(labels).map(k => {
 		return k + " [label=\"" + labels[k] + "\"];";
