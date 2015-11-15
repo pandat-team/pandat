@@ -15,10 +15,30 @@ function printUsage() {
 
 	return loader.getReaders().then(r => {
 		console.log("Usage: pandat -f READER -t WRITER INPUT");
-		console.log("Valid readers: " + r);
+		console.log("Valid readers: ");
+		console.log(r.map(reader => {
+			var toR = "\t" + reader;
+			var r = loader.getReader(reader);
+			if (r.describe) {
+				toR += "\t" + r.describe();
+			}
+			return toR;
+		}).join("\n"));
 		return loader.getWriters();
 	}).then(w => {
-		console.log("Valid writers: " + w);
+		console.log();
+		console.log("Valid writers: ");
+		console.log(w.map(writer => {
+			var toR = "\t" + writer;
+			var w = loader.getWriter(writer);
+			if (w.describe) {
+				toR += "\t" + w.describe();
+			}
+			return toR;
+		}).join("\n"));
+		
+	}).catch(e => {
+		console.log(e);
 	});
 
 
@@ -51,7 +71,7 @@ function convertFormats(from, to, file) {
 		// we have the data, load the reader and generate the IR
 
 		// TODO we are loading arbitrary javascript!
-		var reader = require("./read/" + argv["f"] + ".js");
+		var reader = loader.loadReader(argv["f"]);
 		return reader.convert(data, argv._[0]);
 		
 	}).then(ir => {
@@ -59,7 +79,7 @@ function convertFormats(from, to, file) {
 		// convert it.
 
 
-		var writer = require("./write/" + argv["t"] + ".js");
+		var writer = loader.loadWriter(argv["t"]);
 		return writer.convert(ir);
 
 	}).then(result => {

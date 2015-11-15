@@ -25,3 +25,18 @@ function getWriters() {
 			.map((f) => f.split(".")[0]);
 	});
 }
+
+
+module.exports.getReader = getReader;
+function getReader(reader) {
+	// TODO loading arbitrary JS!
+	var toR = require("../read/" + reader + ".js");
+	return toR;
+}
+
+module.exports.getWriter = getWriter;
+function getWriter(writer) {
+	// TODO loading arbitrary JS!
+	var toR = require("../write/" + writer + ".js");
+	return toR;
+}
