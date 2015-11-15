@@ -1,6 +1,6 @@
 {
   "name": "pandat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pandoc for data",
   "main": "index.js",
   "scripts": {
@@ -31,5 +31,6 @@
   },
   "bin": {
     "pandat": "index.js"
-  }
+  },
+  "man": "./man/pandat.1"
 }
