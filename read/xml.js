@@ -57,6 +57,6 @@ module.exports = {
                                 "children"      :       children(node)       
                         }
                 }
-                return parse(doc);
+                return parse(doc).children[0];
         }
 }
