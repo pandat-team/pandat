@@ -57,6 +57,6 @@ module.exports = {
                                 "children"      :       children(node)       
                         };
                 }
-                return parse(doc)['children'][0]; // grab only the first root element
+                return parse(doc).children;  // grab only the first root element
         }
 }
