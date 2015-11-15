@@ -1,148 +1,67 @@
 // Copyright 2015 Tiffany Chen, David Giliotti, Ryan Marcus, Eden Zik
 // This file is part of pandat
 
+var csv = require("csv-parse");
+var Q = require("q");
+
 module.exports.convert = convert;
 
 function convert(CSVfile, filename){
 	// split csv file by paragraph breaks
 	CSVfile = CSVfile.toString('utf8');
 
-	var CSVFileArray = CSVfile.split("\n");
+	return CSVToArray(CSVfile).then(function (CSVFileArrayofArrays) {
 
-	// process csv file lines into arrays of elements
-	var CSVFileArrayofArrays = [];
-
-
-
-	for (var i = 0; i < CSVFileArray.length; i++) {
-		if (CSVFileArray[i].length == 0)
-			continue;
-
-		CSVFileArrayofArrays[i] = CSVToArray(CSVFileArray[i])[0];
-	}
-
-
-
-
-	// create the IR hash
-	var IR = {
-		"key": filename
-	};
-
-	// make children array 
-	// insert csv array of arrays into separate objects in an array
-	var arrayOfChildrenRows = [];
-	for(var i = 1; i < CSVFileArrayofArrays.length; i++){
-		var childrenObject = {
-			"key": "row"
+		// create the IR hash
+		var IR = {
+			"key": filename
 		};
-
-		// make baby array 
-		var arrayOfBabyRows = [];
-		var babyColumnMarkerArray = CSVFileArrayofArrays[0];
-		var temp = CSVFileArrayofArrays[i];
-		for(var j = 0; j < temp.length; j++) {
-			var babyObj = {
-				"key": babyColumnMarkerArray[j],
-				"children": temp[j]
+		
+		// make children array 
+		// insert csv array of arrays into separate objects in an array
+		var arrayOfChildrenRows = [];
+		for(var i = 1; i < CSVFileArrayofArrays.length; i++){
+			var childrenObject = {
+				"key": "row"
 			};
-			arrayOfBabyRows.push(babyObj);
+			
+			// make baby array 
+			var arrayOfBabyRows = [];
+			var babyColumnMarkerArray = CSVFileArrayofArrays[0];
+			var temp = CSVFileArrayofArrays[i];
+			for(var j = 0; j < temp.length; j++) {
+				var babyObj = {
+					"key": babyColumnMarkerArray[j],
+					"children": temp[j]
+				};
+				arrayOfBabyRows.push(babyObj);
+			}
+			childrenObject["children"] = arrayOfBabyRows;
+			arrayOfChildrenRows.push(childrenObject);
 		}
-		childrenObject["children"] = arrayOfBabyRows;
-		arrayOfChildrenRows.push(childrenObject);
-	}
-
-	// insert array of children into IR
-	IR["children"] = arrayOfChildrenRows;
-
-	return IR;
+		
+		// insert array of children into IR
+		IR["children"] = arrayOfChildrenRows;
+		
+		return IR;
+	});
 }
 
-// ref: http://stackoverflow.com/a/1293163/2343
-// This will parse a delimited string into an array of
-// arrays. The default delimiter is the comma, but this
-// can be overriden in the second argument.
 
-function CSVToArray( strData, strDelimiter ){
-	// Check to see if the delimiter is defined. If not,
-	// then default to comma.
-	strDelimiter = (strDelimiter || ",");
+//convert("A,B,C,D\n0,1,2,3\n4,5,6,7", "data1").then(console.log);
 
-	// Create a regular expression to parse the CSV values.
-	var objPattern = new RegExp(
-		(
-			// Delimiters.
-			"(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+function CSVToArray(data) {
+	var toR = Q.defer();
 
-				// Quoted fields.
-				"(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-
-				// Standard fields.
-				"([^\"\\" + strDelimiter + "\\r\\n]*))"
-		),
-		"gi"
-	);
-
-
-	// Create an array to hold our data. Give the array
-	// a default empty first row.
-	var arrData = [[]];
-
-	// Create an array to hold our individual pattern
-	// matching groups.
-	var arrMatches = null;
-
-
-	// Keep looping over the regular expression matches
-	// until we can no longer find a match.
-	while (arrMatches = objPattern.exec( strData )){
-
-		// Get the delimiter that was found.
-		var strMatchedDelimiter = arrMatches[ 1 ];
-
-		// Check to see if the given delimiter has a length
-		// (is not the start of string) and if it matches
-		// field delimiter. If id does not, then we know
-		// that this delimiter is a row delimiter.
-		if (
-			strMatchedDelimiter.length &&
-				strMatchedDelimiter !== strDelimiter
-		){
-
-			// Since we have reached a new row of data,
-			// add an empty row to our data array.
-			arrData.push( [] );
-
+	csv(data, function(err, d) {
+		if (err) {
+			toR.reject(err);
+			return;
 		}
 
-		var strMatchedValue;
+		toR.resolve(d);
+	});
 
-		// Now that we have our delimiter out of the way,
-		// let's check to see which kind of value we
-		// captured (quoted or unquoted).
-		if (arrMatches[ 2 ]){
-
-			// We found a quoted value. When we capture
-			// this value, unescape any double quotes.
-			strMatchedValue = arrMatches[ 2 ].replace(
-				new RegExp( "\"\"", "g" ),
-				"\""
-			);
-
-		} else {
-
-			// We found a non-quoted value.
-			strMatchedValue = arrMatches[ 3 ];
-
-		}
-
-		// Now that we have our value string, let's add
-		// it to the data array.
-		arrData[ arrData.length - 1 ].push( strMatchedValue );
-	}
-
-	// Return the parsed data.
-	return( arrData );
+	return toR.promise;
 }
 
-//convertFile("A,B,C,D\n0,1,2,3\n4,5,6,7", "data1"); 
