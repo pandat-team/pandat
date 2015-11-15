@@ -55,8 +55,8 @@ module.exports = {
                                 "key"           :       key(node),
                                 "attrs"         :       attrs(node),
                                 "children"      :       children(node)       
-                        }
+                        };
                 }
-                return parse(doc).children[0];
+                return parse(doc).children;  // grab only the first root element
         }
 }
