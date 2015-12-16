@@ -1,4 +1,4 @@
-//Copyright 2015 Tiffant Chen, David Giliotti, Ryan Marcus, Eden Zik
+//Copyright 2015 Tiffany Chen, David Giliotti, Ryan Marcus, Eden Zik
 //This file is part of pandat
 
 //var json = '{"bob":7, "Jerry":{"Marry":[3,6]}, "David":[4,5] }'
