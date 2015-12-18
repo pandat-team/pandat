@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Copyright 2015 Tiffany Chen, David Giliotti, Ryan Marcus, Eden Zik
 // The file is part of pandat
 
@@ -13,6 +14,7 @@
 //  
 // You should have received a copy of the GNU General Public License
 // along with Pandat.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 //var json = '{"bob":7, "Jerry":{"Marry":[3,6]}, "David":[4,5] }'
